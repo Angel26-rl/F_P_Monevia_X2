@@ -1,53 +1,66 @@
 package com.angel.monevia.ui.theme
 
-import android.app.Activity
-import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Color(0xFF35D39A),
+    onPrimary = Color(0xFF101412),
+
+    secondary = Color(0xFF173D2D),
+    onSecondary = Color(0xFFF1F5F2),
+
+    tertiary = Color(0xFFADB9B1),
+    onTertiary = Color(0xFF101412),
+
+    background = Color(0xFF101412),
+    onBackground = Color(0xFFF1F5F2),
+
+    surface = Color(0xFF17201B),
+    onSurface = Color(0xFFF1F5F2),
+
+    surfaceVariant = Color(0xFF223129),
+    onSurfaceVariant = Color(0xFFADB9B1),
+
+    error = Color(0xFFFF6B72),
+    onError = Color(0xFF101412)
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = Color(0xFF176B4A),
+    onPrimary = Color(0xFFFFFFFF),
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    secondary = Color(0xFF35D39A),
+    onSecondary = Color(0xFF101412),
+
+    tertiary = Color(0xFF527461),
+    onTertiary = Color(0xFFFFFFFF),
+
+    background = Color(0xFFF1F5F2),
+    onBackground = Color(0xFF101412),
+
+    surface = Color(0xFFFFFFFF),
+    onSurface = Color(0xFF101412),
+
+    surfaceVariant = Color(0xFFE1EAE4),
+    onSurfaceVariant = Color(0xFF526158),
+
+    error = Color(0xFFD85C5C),
+    onError = Color(0xFFFFFFFF)
 )
 
 @Composable
 fun MoneviaTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    darkTheme: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+    val colorScheme = if (darkTheme) {
+        DarkColorScheme
+    } else {
+        LightColorScheme
     }
 
     MaterialTheme(

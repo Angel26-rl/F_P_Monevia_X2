@@ -188,6 +188,6 @@ El desarrollo continuará con mejoras de interfaz, experiencia de usuario, almac
 
 **Módulo:** Aplicación Android
 
-**Desarrollador:** Ángel Ramos
+**Desarrollador:** Angel Ramos
 
 [Volver al README principal](../README.md)

@@ -182,6 +182,6 @@ El proyecto continuará evolucionando mediante mejoras en la interfaz, experienc
 
 ---
 
-**Desarrollado por:** Ángel Ramos
+**Desarrollado por:** Angel Ramos
 
 **Repositorio:** [F_P_Monevia_X2](https://github.com/Angel26-rl/F_P_Monevia_X2)

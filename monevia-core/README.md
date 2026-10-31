@@ -174,6 +174,6 @@ Su desarrollo continuará mediante mejoras en la lógica de negocio, ampliación
 
 **Módulo:** Biblioteca Kotlin
 
-**Desarrollador:** Ángel Ramos
+**Desarrollador:** Angel Ramos
 
 [Volver al README principal](../README.md)
