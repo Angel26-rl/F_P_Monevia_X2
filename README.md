@@ -1,184 +1,153 @@
 # Monevia
 
-**Aplicación de gestión de finanzas personales para Android.**
+Aplicación Android de gestión de finanzas personales, desarrollada con Kotlin y Jetpack Compose.
 
-Monevia es un proyecto de software desarrollado para facilitar el registro y control de las finanzas personales. Permite administrar ingresos y gastos, consultar el historial de transacciones y visualizar el balance económico a partir de los movimientos registrados.
+Monevia permite registrar ingresos y gastos, consultar movimientos, revisar la información financiera por mes y visualizar la distribución de los gastos por categoría. Las transacciones se almacenan localmente en el dispositivo.
 
-El proyecto está desarrollado con Kotlin y Android, utilizando una arquitectura que separa la lógica de negocio de la aplicación móvil.
+## Objetivo
 
----
+Facilitar el control de las finanzas personales mediante el registro organizado de ingresos y gastos, el almacenamiento local y el cálculo automático del balance.
 
-## Objetivo del proyecto
-
-Desarrollar una aplicación móvil que permita al usuario llevar un control organizado de sus finanzas personales mediante el registro de ingresos y gastos, el almacenamiento local de información y el cálculo automático del balance.
-
-## Funcionalidades actuales
+## Funcionalidades
 
 - Registro de ingresos y gastos.
-- Clasificación de transacciones por tipo y categoría.
+- Clasificación de movimientos por tipo y categoría.
 - Registro de monto, descripción y fecha.
-- Consulta del historial de transacciones.
-- Cálculo de ingresos y gastos acumulados.
-- Actualización automática del balance.
+- Consulta del historial de movimientos.
+- Filtro mensual para consultar movimientos e indicadores del período.
+- Cálculo de ingresos, gastos y balance disponible.
 - Identificación visual de balances negativos.
-- Eliminación de transacciones.
-- Almacenamiento local de transacciones mediante Room.
-- Registro y edición de información del perfil sin sistema de inicio de sesión.
+- Gráfico de distribución de gastos por categoría.
+- Eliminación de movimientos.
+- Persistencia local de transacciones mediante Room.
+- Registro y edición de la información del perfil, sin inicio de sesión.
+- Icono personalizado de Monevia para Android.
 
-## Arquitectura del proyecto
+## Arquitectura
 
-Monevia está organizado en dos componentes principales:
+El repositorio se divide en dos componentes:
 
-### 1. Aplicación Android — `app`
+### Aplicación Android — `app`
 
-Contiene la aplicación móvil y su interfaz gráfica.
+Contiene la aplicación móvil, la interfaz y la persistencia local. Utiliza Kotlin, Jetpack Compose, Material 3, Room, Kotlin Coroutines y Flow.
 
-Tecnologías principales:
+Responsabilidades:
+- Presentar la bienvenida, el registro de perfil y el panel financiero.
+- Registrar y consultar movimientos.
+- Mostrar indicadores, gráfico por categorías e historial.
+- Filtrar la información por mes.
+- Guardar las transacciones mediante Room y administrar el perfil mediante preferencias locales.
 
-- Kotlin
-- Android Studio
-- Jetpack Compose
-- Material 3
-- Room
-- Kotlin Coroutines y Flow
+Consulta [`app/README.md`](app/README.md).
 
-### 2. Biblioteca Kotlin — `monevia-core`
+### Biblioteca Kotlin — `monevia-core`
 
-Contiene la lógica de negocio relacionada con las transacciones financieras.
+Contiene la lógica de negocio de las transacciones, separada de la interfaz Android. Define el modelo, valida montos y calcula ingresos, gastos y balance. Utiliza Maven.
 
-Responsabilidades principales:
+Consulta [`monevia-core/README.md`](monevia-core/README.md).
 
-- Definición del modelo de transacción.
-- Administración de transacciones.
-- Validación de montos.
-- Cálculo de ingresos.
-- Cálculo de gastos.
-- Cálculo del balance.
-
-La biblioteca utiliza Maven para su construcción y administración de dependencias.
-
----
-
-## Estructura del repositorio
+## Estructura
 
 ```text
 Monevia/
-│
 ├── app/
-│   ├── src/
-│   │   └── main/
-│   │       ├── java/com/angel/monevia/
-│   │       │   ├── data/
-│   │       │   │   ├── local/
-│   │       │   │   └── repository/
-│   │       │   ├── ui/
-│   │       │   │   └── theme/
-│   │       │   ├── MainActivity.kt
-│   │       │   └── PantallaFinanzas.kt
-│   │       └── res/
+│   ├── src/main/
+│   │   ├── java/com/angel/monevia/
+│   │   │   ├── data/local/
+│   │   │   ├── data/repository/
+│   │   │   ├── ui/theme/
+│   │   │   ├── MainActivity.kt
+│   │   │   └── PantallaFinanzas.kt
+│   │   ├── res/
+│   │   └── AndroidManifest.xml
 │   ├── build.gradle.kts
 │   └── README.md
-│
 ├── monevia-core/
-│   ├── src/
-│   │   ├── main/kotlin/
-│   │   │   └── com/angel/monevia/core/
-│   │   │       ├── GestorTransacciones.kt
-│   │   │       └── Transaccion.kt
-│   │   └── test/kotlin/
-│   │       └── GestorTransaccionesTest.kt
+│   ├── src/main/kotlin/
+│   ├── src/test/kotlin/
 │   ├── pom.xml
 │   └── README.md
-│
 ├── gradle/
 ├── build.gradle.kts
 ├── settings.gradle.kts
 ├── gradle.properties
 ├── gradlew
-├── gradlew.bat
-└── README.md
+└── gradlew.bat
 ```
 
-## Tecnologías y herramientas
+## Tecnologías
 
 | Tecnología | Uso |
 |---|---|
-| Kotlin 2.2.10 | Lenguaje de programación |
-| Java JDK 11 | Entorno de desarrollo y compatibilidad |
-| Android Studio | Desarrollo de la aplicación móvil |
-| IntelliJ IDEA | Desarrollo de la biblioteca Kotlin |
-| Jetpack Compose | Construcción de interfaces |
+| Kotlin 2.2.10 | Lenguaje |
+| Java JDK 11 | Compatibilidad de compilación |
+| Android Studio | Desarrollo Android |
+| IntelliJ IDEA | Desarrollo de `monevia-core` |
+| Jetpack Compose | Interfaces |
 | Material 3 | Componentes visuales |
-| Room 2.8.4 | Persistencia local de transacciones |
-| Maven | Construcción e instalación de la biblioteca |
-| Gradle 9.6.0 | Construcción de la aplicación Android |
-| Git y GitHub | Control de versiones y alojamiento del código |
+| Room 2.8.4 | Persistencia local |
+| Kotlin Coroutines y Flow | Operaciones asíncronas y observación de datos |
+| Maven | Construcción de la biblioteca |
+| Gradle | Construcción Android |
+| Git y GitHub | Control de versiones |
 
-## Requisitos de desarrollo
+## Requisitos
 
 - Android Studio.
-- IntelliJ IDEA.
-- JDK 11.
-- Gradle Wrapper incluido en el repositorio.
-- Maven, disponible mediante IntelliJ IDEA o una instalación independiente.
-- Dispositivo Android o emulador compatible con Android API 24 o superior.
+- IntelliJ IDEA para `monevia-core`.
+- JDK compatible con JVM 11.
+- Android SDK configurado para el proyecto.
+- Maven, mediante IntelliJ IDEA o instalación independiente.
+- Dispositivo o emulador Android compatible con API 24 o superior.
 
 ## Instalación y ejecución
 
-### 1. Clonar el repositorio
+### 1. Clonar
 
 ```bash
 git clone https://github.com/Angel26-rl/F_P_Monevia_X2.git
 ```
 
-### 2. Preparar la biblioteca Kotlin
+### 2. Preparar `monevia-core`
 
-Abrir el proyecto `monevia-core` en IntelliJ IDEA.
-
-Ejecutar las siguientes tareas Maven:
+Abrir el módulo en IntelliJ IDEA y ejecutar:
 
 ```bash
 mvn clean test
 mvn install
 ```
 
-La tarea `install` publica la biblioteca en el repositorio Maven local.
+Esto instala la biblioteca en el repositorio Maven local para que Android pueda resolver la dependencia.
 
-### 3. Ejecutar la aplicación Android
+### 3. Compilar Android
 
-Abrir la carpeta principal `Monevia` en Android Studio y esperar a que finalice la sincronización de Gradle.
-
-Compilar la aplicación mediante:
+Abrir la carpeta raíz en Android Studio y esperar la sincronización de Gradle. En PowerShell:
 
 ```powershell
 .\gradlew.bat :app:assembleDebug
 ```
 
-También es posible ejecutar la aplicación directamente desde Android Studio mediante un dispositivo físico o emulador compatible.
+El APK de depuración se genera normalmente en:
 
-## Persistencia de datos
+```text
+app/build/outputs/apk/debug/app-debug.apk
+```
 
-Las transacciones se almacenan localmente mediante Room, utilizando SQLite como motor de almacenamiento.
+También se puede ejecutar desde Android Studio en un dispositivo físico o emulador.
 
-La información del perfil se administra actualmente mediante almacenamiento local de preferencias.
+## Persistencia
 
-## Control de versiones
+- Las transacciones se almacenan localmente mediante Room y SQLite.
+- La base de datos se identifica como `monevia_database`.
+- La información del perfil se administra mediante `SharedPreferences`.
 
-El proyecto utiliza un esquema de versionamiento definido para organizar la evolución del software:
-
-| Versión | Tipo de cambio |
-|---|---|
-| `0.0.1` | Cambios pequeños o menores. |
-| `0.1.0` | Cambios intermedios o refactorizaciones importantes. |
-| `1.0.0` | Cambios mayores, nuevas funcionalidades y versiones robustas. |
-
-Las versiones se actualizarán conforme evolucione el proyecto.
+La aplicación no requiere una cuenta ni un servicio remoto para registrar movimientos.
 
 ## Estado del proyecto
 
-Monevia cuenta con una primera implementación funcional de registro de transacciones, almacenamiento local, cálculo de balances e integración entre la aplicación Android y la biblioteca Kotlin.
+Monevia se encuentra en su versión funcional de entrega. La aplicación Android y la biblioteca `monevia-core` están integradas. La aplicación incluye registro y consulta de movimientos, persistencia local, cálculo de balances, consulta mensual, visualización de gastos por categoría e identidad visual propia.
 
-El proyecto continuará evolucionando mediante mejoras en la interfaz, experiencia de usuario, persistencia de información, pruebas y optimización.
+La compilación fue comprobada en Android Studio y la aplicación fue instalada y ejecutada en un dispositivo Motorola Edge 50 Fusion. Las mejoras adicionales se consideran opcionales y no son necesarias para utilizar las funcionalidades actuales.
 
 ---
 

@@ -1,104 +1,48 @@
 # Monevia — Aplicación Android
 
-Este módulo contiene la aplicación móvil de **Monevia**, un sistema de gestión de finanzas personales desarrollado para dispositivos Android mediante Kotlin y Jetpack Compose.
+Este módulo contiene la aplicación móvil de Monevia, desarrollada en Kotlin con Jetpack Compose. Su propósito es ofrecer una interfaz para administrar las finanzas personales, registrar movimientos y consultar el estado financiero del usuario.
 
-Su propósito es proporcionar una interfaz que permita registrar, consultar y administrar ingresos y gastos, manteniendo actualizada la información financiera del usuario.
+## Funcionalidades
 
-## 1. Tecnologías utilizadas
+- Pantalla de bienvenida y registro del perfil.
+- Edición de la información del perfil.
+- Registro de ingresos y gastos.
+- Clasificación de transacciones por categoría.
+- Consulta del historial de movimientos.
+- Filtro mensual para consultar los movimientos de un período.
+- Cálculo de ingresos, gastos y balance disponible.
+- Indicador visual cuando el balance es negativo.
+- Gráfico circular para visualizar los gastos por categoría.
+- Eliminación de transacciones.
+- Almacenamiento local de los movimientos mediante Room.
 
-| Tecnología | Versión | Función |
-|---|---|---|
-| Kotlin | 2.2.10 | Lenguaje de programación |
-| Android Gradle Plugin | 9.4.1 | Configuración y construcción Android |
-| Gradle | 9.6.0 | Automatización de compilación |
-| Jetpack Compose | BOM 2026.02.01 | Desarrollo de interfaces |
-| Material 3 | Según catálogo de dependencias | Componentes visuales |
-| Room | 2.8.4 | Persistencia local |
-| KSP | 2.2.10-2.0.2 | Procesamiento de código |
-| Java | JVM 11 | Compatibilidad de compilación |
+## Tecnologías utilizadas
 
-## 2. Estructura del módulo
+- Kotlin 2.2.10.
+- Jetpack Compose.
+- Material 3.
+- Room 2.8.4.
+- Kotlin Coroutines.
+- Kotlin Flow.
+- Gradle.
+- Android SDK.
 
-```text
-app/
-│
-├── src/
-│   └── main/
-│       ├── java/com/angel/monevia/
-│       │   │
-│       │   ├── data/
-│       │   │   ├── local/
-│       │   │   │   ├── MoneviaDatabase.kt
-│       │   │   │   ├── TransaccionDao.kt
-│       │   │   │   └── TransaccionEntity.kt
-│       │   │   │
-│       │   ├── data/repository/
-│       │   │   └── TransaccionRepository.kt
-│       │   │
-│       │   ├── ui/theme/
-│       │   │   ├── Color.kt
-│       │   │   ├── Theme.kt
-│       │   │   └── Type.kt
-│       │   │
-│       │   ├── MainActivity.kt
-│       │   └── PantallaFinanzas.kt
-│       │
-│       ├── res/
-│       └── AndroidManifest.xml
-│
-├── build.gradle.kts
-└── README.md
-```
+## Arquitectura del módulo
 
-## 3. Componentes principales
+La aplicación Android se encarga de la interfaz de usuario, la navegación y la persistencia local de la información.
 
-### MainActivity.kt
+### Interfaz de usuario
 
-Es el punto de entrada de la aplicación Android.
+La interfaz está desarrollada con Jetpack Compose y Material 3.
 
-Se encarga de iniciar la interfaz y administrar el flujo inicial del perfil del usuario.
+Entre sus componentes principales se encuentran:
 
-### PantallaFinanzas.kt
+- `MainActivity.kt`: punto de entrada de la aplicación y gestión del flujo inicial de bienvenida y perfil.
+- `PantallaFinanzas.kt`: pantalla principal de finanzas, donde se muestran los indicadores, el historial, el filtro mensual y el gráfico de gastos por categoría.
 
-Contiene la interfaz principal de gestión financiera.
+### Persistencia local
 
-Entre sus responsabilidades se encuentran:
-
-- Mostrar los ingresos y gastos.
-- Presentar el balance disponible.
-- Registrar nuevas transacciones.
-- Mostrar el historial de movimientos.
-- Permitir eliminar transacciones.
-- Facilitar la edición de la información del perfil.
-- Actualizar la información visual cuando cambian los datos.
-
-La interfaz está desarrollada mediante Jetpack Compose y componentes de Material 3.
-
-### Capa de datos local
-
-Se encuentra dentro de `data/local/`.
-
-**TransaccionEntity.kt**
-
-Define la entidad que representa una transacción dentro de la base de datos.
-
-**TransaccionDao.kt**
-
-Contiene las operaciones de acceso a los registros, incluyendo inserción, consulta y eliminación.
-
-**MoneviaDatabase.kt**
-
-Define la base de datos local mediante Room.
-
-### TransaccionRepository.kt
-
-Actúa como intermediario entre la interfaz, la base de datos y la biblioteca Kotlin `monevia-core`.
-
-Se encarga de gestionar las operaciones relacionadas con las transacciones y utilizar la lógica de negocio de la biblioteca.
-
-## 4. Persistencia de información
-
-La aplicación utiliza Room como biblioteca de persistencia local, basada en SQLite.
+La aplicación utiliza Room sobre SQLite para almacenar las transacciones en el dispositivo.
 
 La base de datos se identifica como:
 
@@ -106,88 +50,88 @@ La base de datos se identifica como:
 monevia_database
 ```
 
-Actualmente, las transacciones se almacenan localmente en el dispositivo.
+La información del perfil se administra mediante `SharedPreferences`.
 
-Los datos del perfil se administran mediante SharedPreferences.
+### Lógica de negocio
 
-## 5. Integración con monevia-core
+La lógica de administración y cálculo de transacciones se encuentra en el módulo independiente `monevia-core`.
 
-La aplicación utiliza la biblioteca Kotlin mediante una dependencia Maven:
+La aplicación utiliza la biblioteca mediante la dependencia:
 
 ```kotlin
 implementation("com.angel.monevia:monevia-core:1.0-SNAPSHOT")
 ```
 
-La dependencia se resuelve mediante el repositorio Maven local configurado en el proyecto.
+Para que Gradle pueda resolver esta dependencia, primero debe instalarse `monevia-core` en el repositorio Maven local.
 
-Para actualizar la biblioteca después de realizar modificaciones en su código fuente, es necesario ejecutar Maven desde el módulo `monevia-core`:
+## Recursos visuales
 
-```bash
-mvn clean test
-mvn install
+El módulo contiene los recursos gráficos de la aplicación, incluidos los recursos del icono personalizado de Monevia.
+
+Los recursos del lanzador Android se encuentran organizados dentro de:
+
+```text
+src/main/res/
 ```
 
-Después, Android puede utilizar la versión instalada durante su siguiente compilación.
+El manifiesto utiliza los recursos correspondientes:
 
-Para más información, consultar el archivo `../monevia-core/README.md`.
+```xml
+android:icon="@mipmap/ic_launcher"
+android:roundIcon="@mipmap/ic_launcher_round"
+```
 
-## 6. Configuración de Android
+## Configuración
 
-Configuración principal del módulo:
+El proyecto utiliza las siguientes versiones principales:
 
-| Propiedad | Valor |
+| Componente | Versión |
 |---|---|
-| Namespace | `com.angel.monevia` |
-| Application ID | `com.angel.monevia` |
+| Kotlin | 2.2.10 |
+| Android Gradle Plugin | 9.4.1 |
+| Gradle | 9.6.0 |
+| Compose BOM | 2026.02.01 |
+| Room | 2.8.4 |
+| KSP | 2.2.10-2.0.2 |
+| Java/JVM | 11 |
 | Compile SDK | 37 |
-| Minimum SDK | 24 |
 | Target SDK | 37 |
-| Version Code | 1 |
-| Version Name | 1.0 |
+| Minimum SDK | 24 |
 
-## 7. Compilación y ejecución
+## Compilación
 
-### Requisitos
-
-- Android Studio.
-- JDK compatible con la configuración del proyecto.
-- SDK de Android correspondiente.
-- Biblioteca `monevia-core` instalada en Maven Local.
-- Dispositivo Android o emulador compatible.
-
-### Compilar la aplicación
-
-Desde la carpeta raíz del repositorio Monevia, ejecutar:
+Desde la terminal de Android Studio o PowerShell, ejecutar:
 
 ```powershell
 .\gradlew.bat :app:assembleDebug
 ```
 
-El archivo APK de depuración se genera normalmente en:
+Para compilar el módulo:
+
+```powershell
+.\gradlew.bat :app:compileDebugSources
+```
+
+El APK de depuración se genera normalmente en:
 
 ```text
 app/build/outputs/apk/debug/app-debug.apk
 ```
 
-### Ejecutar en un dispositivo
+## Ejecución
 
-1. Abrir el proyecto principal en Android Studio.
-2. Conectar un dispositivo Android o iniciar un emulador.
-3. Seleccionar la configuración de ejecución `app`.
-4. Ejecutar mediante el botón Run.
+1. Abrir el proyecto en Android Studio.
+2. Verificar que `monevia-core` esté instalado en el repositorio Maven local.
+3. Esperar la sincronización de Gradle.
+4. Seleccionar un dispositivo físico o emulador.
+5. Ejecutar la aplicación.
 
-## 8. Estado del módulo
+## Estado del módulo
 
-La aplicación cuenta con una implementación funcional de registro de ingresos y gastos, persistencia local de transacciones, consulta de movimientos y cálculo automático del balance.
+El módulo Android se encuentra integrado con `monevia-core` y cuenta con las funcionalidades principales de Monevia. Incluye registro de movimientos, almacenamiento local, consulta mensual, indicadores financieros, historial y gráfico de distribución de gastos.
 
-El desarrollo continuará con mejoras de interfaz, experiencia de usuario, almacenamiento de preferencias, animaciones, pruebas y optimización.
+La aplicación fue compilada y ejecutada en un dispositivo Motorola Edge 50 Fusion.
 
 ---
 
-**Proyecto:** Monevia
-
-**Módulo:** Aplicación Android
-
-**Desarrollador:** Angel Ramos
-
-[Volver al README principal](../README.md)
+**Desarrollado por:** Angel Ramos
